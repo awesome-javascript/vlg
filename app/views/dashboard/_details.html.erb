@@ -1,13 +1,21 @@
 <h3>
   <%= vm.name %>
-<% if vm.runtime.powerState == 'poweredOn' %>
-  <span class="label label-success">Running</span>
-<% else %>
-  <span class="label label-success">Stopped</span>
-<% end %>
+  <% if vm.runtime.powerState == 'poweredOn' %>
+    <span class="label label-success">Running</span>
+  <% else %>
+    <span class="label label-danger">Stopped</span>
+  <% end %>
 </h3>
 
 <p id="vm-summary">
   vCPU(s) <span class="badge"><%= vm.summary.config.numCpu %></span></a>
+
   Mémory <span class="badge"><%= vm.summary.config.memorySizeMB %></span></a>
+
+  VMware Tools
+  <% if vm.guest.toolsStatus == 'toolsOk' %>
+    <span class="label label-success">OK</span>
+  <% else %>
+    <span class="label label-danger">NOK</span>
+  <% end %>
 </p>
