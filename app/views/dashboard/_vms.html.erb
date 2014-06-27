@@ -8,6 +8,13 @@
   <% end %>
     <td class="vm-cpu"><%= vm.summary.config.numCpu %></td>
     <td class="vm-memory"><%= vm.summary.config.memorySizeMB %> MB</td>
+    <td class="vm-tools">
+      <% if vm.guest.toolsStatus == 'toolsOk' %>
+        <span class="label label-success">OK</span>
+      <% else %>
+        <span class="label label-danger">NOK</span>
+      <% end %>
+    </td>
     <td class="vm-actions">
       <div class="dropdown">
       <% if vm.runtime.powerState == 'poweredOn' %>

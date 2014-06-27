@@ -14,7 +14,7 @@ th {
   margin: 0 5px;
 }
 
-#vms td.vm-state, #vms td.vm-cpu, #vms td.vm-memory, #vms td.vm-actions {
+#vms td.vm-state, #vms td.vm-cpu, #vms td.vm-memory, #vms td.vm-tools, #vms td.vm-actions {
   text-align: center;
 }
 
