@@ -1,0 +1,35 @@
+th {
+  text-align: center;
+}
+
+#vms {
+  display: none;
+}
+
+#vms td a {
+  padding: 0 5px;
+}
+
+#vms td button {
+  margin: 0 5px;
+}
+
+#vms td.vm-state, #vms td.vm-cpu, #vms td.vm-memory, #vms td.vm-actions {
+  text-align: center;
+}
+
+#vms ul.dropdown-menu {
+  text-align: left;
+}
+
+ul.dropdown-menu {
+  padding: 5px;
+}
+
+#loading img {
+  padding-right: 15px;
+}
+
+#vm-summary {
+  text-align: right;
+}

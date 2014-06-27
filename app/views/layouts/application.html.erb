@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My VCenter - Virtual Machine Manager</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>My VCenter <small>VMware Looking Glass</small></h1>
+    </div>
+
+    <%= yield %>
+
+  </div>
+
+</body>
+</html>
