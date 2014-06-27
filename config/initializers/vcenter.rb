@@ -10,9 +10,13 @@ module Vsphere
                                   :password => config['password'],
                                   :insecure => true
 
-      @instance = vsx.serviceInstance.find_datacenter
-                                     .vmFolder.childEntity.grep(RbVmomi::VIM::Folder)
-                                     .detect { | folder | folder.name == config['folder'] }
+      @instance = vsx.serviceInstance.find_datacenter.vmFolder
+
+      if config['folder'] != nil
+        @instance = @instance.childEntity.grep(RbVmomi::VIM::Folder)
+                                         .detect { | folder | folder.name == config['folder'] }
+      end
+
       @instance
     end
   end
