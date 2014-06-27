@@ -3,7 +3,7 @@ module Vsphere
     def instance
       @instance if @instance
 
-      config = YAML.load_file("#{Rails.root}/config/vsphere.yml")['vcenter']
+      config = YAML.load_file("#{Rails.root}/config/vcenter.yml")['vcenter']
       
       vsx =  RbVmomi::VIM.connect :host => config['host'],
                                   :user => config['username'],
