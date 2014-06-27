@@ -33,3 +33,8 @@ ul.dropdown-menu {
 #vm-summary {
   text-align: right;
 }
+
+iframe {
+  width: 100%;
+  height: 600px;
+}

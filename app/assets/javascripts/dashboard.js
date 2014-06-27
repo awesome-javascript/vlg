@@ -29,6 +29,11 @@ load_vms();
 
 $(function()
 {
+  $(document).on("ajax:complete", "a", function(evt, data, status, xhr) {
+    $('#vm-console-iframe').attr('src', data['responseText']);
+    console.log(data['responseText']);
+  });
+
   // setInterval(load_vms, 5000);
 
   $('#vms').on('click', 'tr', function()
