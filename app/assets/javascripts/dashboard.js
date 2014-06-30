@@ -30,16 +30,24 @@ load_vms();
 
 $(function()
 {
-  $(document).on("ajax:complete", "a.vm-launch-console", function(evt, data, status, xhr) {
-    $('#vm-console-iframe').attr('src', data['responseText']);
-    consoleUrl = data['responseText'];
+  $(document)
+    .on('click', 'a.vm-launch-console', function(evt)
+    {
+      $('#vm-console-modal iframe').attr('src', '');
+      $('#vm-console-modal').modal('show');
+    })
+    .on("ajax:complete", "a.vm-launch-console", function(evt, data, status, xhr)
+    {
+      $('#vm-console-iframe').attr('src', data['responseText']);
+      consoleUrl = data['responseText'];
 
-    $('#vm-console-modal').modal('show');
-  });
+      $('#vm-console-modal').modal('show');
+    }
+  );
 
-  // setInterval(load_vms, 5000);
+  setInterval(load_vms, 5000);
 
-  $('#vms').on('click', 'tr', function()
+  $('#vms').on('click', 'tbody tr', function()
   {
     $('#' + selectedVm).removeClass('info');
     selectedVm = $(this).attr('id');

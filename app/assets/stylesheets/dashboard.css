@@ -1,3 +1,8 @@
+h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
 th {
   text-align: center;
 }
@@ -15,6 +20,17 @@ th {
 }
 
 #vms td.vm-state, #vms td.vm-cpu, #vms td.vm-memory, #vms td.vm-tools, #vms td.vm-actions {
+  text-align: center;
+}
+
+#vm-details div.panel-heading {
+  padding: 5px;
+}
+
+#vm-details div.panel-body {
+}
+
+#vm-details-table td {
   text-align: center;
 }
 
@@ -46,4 +62,8 @@ ul.dropdown-menu {
 iframe {
   width: 800px;
   height: 600px;
+}
+
+.progress-bar[aria-valuenow="1"], .progress-bar[aria-valuenow="2"] {
+  min-width: 30px;
 }

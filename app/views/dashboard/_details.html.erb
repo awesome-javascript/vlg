@@ -7,15 +7,48 @@
   <% end %>
 </h3>
 
-<p id="vm-summary">
-  vCPU(s) <span class="badge"><%= vm.summary.config.numCpu %></span></a>
+<div class="panel panel-default">
+  <div class="panel-heading">Network interfaces</div>
+  <table class="table" id="vm-details-table">
+    <thead>
+      <tr>
+        <th>State</th>
+        <th>MAC Address</th>
+        <th>IP Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vm.guest.net.each do | nic | %>
+        <tr>
+          <% if nic.connected %>
+            <td class="vm-state"><span class="label label-success">UP</span></td>
+          <% else %>
+            <td class="vm-state"><span class="label label-danger">DOWN</span></td>
+          <% end %>
+          <td><%= nic.macAddress %></td>
+          <td><%= nic.ipConfig.ipAddress[0].ipAddress %>/<%= nic.ipConfig.ipAddress[0].prefixLength %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-  Mémory <span class="badge"><%= vm.summary.config.memorySizeMB %></span></a>
-
-  VMware Tools
-  <% if vm.guest.toolsStatus == 'toolsOk' %>
-    <span class="label label-success">OK</span>
-  <% else %>
-    <span class="label label-danger">NOK</span>
-  <% end %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">Hard drives</div>
+  <div class="panel-body">
+    <% vm.guest.disk.each do | disk | %>
+      <%
+        used_space = disk.capacity - disk.freeSpace
+        percent = (used_space / disk.capacity.to_f * 100).to_i
+        capacity = (disk.capacity.to_f / 1024 / 1024 / 1024).round(2)
+        used_space = (used_space.to_f / 1024 / 1024 / 1024).round(2)
+      %>
+      <h5><%= disk.diskPath %> <small><%= used_space %> / <%= capacity %> GB</small></h5>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percent %>%;">
+          <%= percent %>%
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
