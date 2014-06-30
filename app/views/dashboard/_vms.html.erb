@@ -20,7 +20,7 @@
       <% if vm.runtime.powerState == 'poweredOn' %>
         <%= link_to raw('<span class="glyphicon glyphicon-stop"></span>'), vm_shutdown_path(vm: vm.name), :remote => true %>
       <% else %>
-        <%= link_to raw('<span class="glyphicon glyphicon-play"></span>'), vm_shutdown_path(vm: vm.name), :remote => true %>
+        <%= link_to raw('<span class="glyphicon glyphicon-play"></span>'), vm_start_path(vm: vm.name), :remote => true %>
       <% end %>
         <%= link_to raw('<span class="glyphicon glyphicon-refresh"></span>'), vm_reboot_path(vm: vm.name), :remote => true %>
 

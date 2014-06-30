@@ -34,7 +34,16 @@ ul.dropdown-menu {
   text-align: right;
 }
 
+#vm-console-modal div.modal-dialog {
+  width: 820px;
+}
+
+#vm-console-modal div.modal-content {
+  width: 820px;
+  padding: 10px;
+}
+
 iframe {
-  width: 100%;
+  width: 800px;
   height: 600px;
 }

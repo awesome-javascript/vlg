@@ -1,5 +1,6 @@
 var xhr = null;
 var selectedVm = null;
+var consoleUrl = null;
 
 /* Bind on AJAX events */
 
@@ -29,9 +30,11 @@ load_vms();
 
 $(function()
 {
-  $(document).on("ajax:complete", "a", function(evt, data, status, xhr) {
+  $(document).on("ajax:complete", "a.vm-launch-console", function(evt, data, status, xhr) {
     $('#vm-console-iframe').attr('src', data['responseText']);
-    console.log(data['responseText']);
+    consoleUrl = data['responseText'];
+
+    $('#vm-console-modal').modal('show');
   });
 
   // setInterval(load_vms, 5000);

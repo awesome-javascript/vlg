@@ -52,7 +52,7 @@ class DashboardController < ApplicationController
 
   def console
     vm = Vsphere.instance.find params[:vm], RbVmomi::VIM::VirtualMachine
-    url = `console-url #{vm._ref}`
+    url = `console-url #{vm.name}`
 
     render text: url
   end
