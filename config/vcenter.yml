@@ -1,6 +1,0 @@
-vcenter:
-  host: 10.1.11.52
-  username: root
-  password: vmware
-  folder: anpop
-
