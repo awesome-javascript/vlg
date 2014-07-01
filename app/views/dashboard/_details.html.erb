@@ -29,7 +29,11 @@
             <td class="vm-state"><span class="label label-danger">DOWN</span></td>
           <% end %>
           <td><%= nic.macAddress %></td>
-          <td><%= nic.ipConfig.ipAddress[0].ipAddress %>/<%= nic.ipConfig.ipAddress[0].prefixLength %></td>
+          <% if nic.ipConfig.ipAddress[0].nil? %>
+            <td>N/A</td>
+          <% else %>
+            <td><%= nic.ipConfig.ipAddress[0].ipAddress %>/<%= nic.ipConfig.ipAddress[0].prefixLength %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
