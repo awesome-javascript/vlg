@@ -40,7 +40,7 @@
   <div class="panel-heading">Hard drives</div>
   <div class="panel-body">
     <% vm.disks.each do | disk | %>
-      <h5><%= disk.disk_path %> <small><%= disk.used_space(:gb) %> / <%= disk.capacity(:gb) %> GB</small></h5>
+      <h5><%= disk.disk_path %> <small class="navbar-right"><%= disk.used_space(:gb) %> / <%= disk.capacity(:gb) %> GB</small></h5>
       <div class="progress">
         <div class="progress-bar" role="progressbar" aria-valuenow="<%= disk.percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= disk.percent %>%;">
           <%= disk.percent %>%
