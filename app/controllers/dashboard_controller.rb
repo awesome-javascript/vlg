@@ -4,13 +4,15 @@ class DashboardController < ApplicationController
   end
 
   def status
-    @vms = Vsphere.instance.childEntity.grep(RbVmomi::VIM::VirtualMachine)
+    @vms = Vsphere.instance.childEntity.grep(RbVmomi::VIM::VirtualMachine).map do | vm |
+      Vm.new(vm)
+    end
 
     render partial: 'vms', locals: { vms: @vms }
   end
 
   def details
-    @vm = Vsphere.instance.find params[:vm], RbVmomi::VIM::VirtualMachine
+    @vm = Vm.new(Vsphere.instance.find params[:vm], RbVmomi::VIM::VirtualMachine)
 
     render partial: 'details', locals: { vm: @vm }
   end

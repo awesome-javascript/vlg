@@ -1,15 +1,15 @@
 <% vms.each do | vm | %>
   <tr id="<%= vm.name %>">
     <td class="vm-name"><%= vm.name %></td>
-  <% if vm.runtime.powerState == 'poweredOn' %>
+  <% if vm.power_state  %>
     <td class="vm-state"><span class="label label-success">Running</span></td>
   <% else %>
     <td class="vm-state"><span class="label label-danger">Stopped</span></td>
   <% end %>
-    <td class="vm-cpu"><%= vm.summary.config.numCpu %></td>
-    <td class="vm-memory"><%= vm.summary.config.memorySizeMB %> MB</td>
+    <td class="vm-cpu"><%= vm.cpu %></td>
+    <td class="vm-memory"><%= vm.memory %> MB</td>
     <td class="vm-tools">
-      <% if vm.guest.toolsStatus == 'toolsOk' %>
+      <% if vm.tools_status %>
         <span class="label label-success">OK</span>
       <% else %>
         <span class="label label-danger">NOK</span>
@@ -17,20 +17,20 @@
     </td>
     <td class="vm-actions">
       <div class="dropdown">
-      <% if vm.runtime.powerState == 'poweredOn' %>
-        <%= link_to raw('<span class="glyphicon glyphicon-stop"></span>'), vm_shutdown_path(vm: vm.name), :remote => true %>
+      <% if vm.power_state %>
+        <%= link_to raw('<span class="glyphicon glyphicon-stop"></span>'), vm_shutdown_path(vm: vm.name), :remote => true, :confirm => "Are you sure you want to shutdown VM '#{vm.name}?'" %>
       <% else %>
         <%= link_to raw('<span class="glyphicon glyphicon-play"></span>'), vm_start_path(vm: vm.name), :remote => true %>
       <% end %>
-        <%= link_to raw('<span class="glyphicon glyphicon-refresh"></span>'), vm_reboot_path(vm: vm.name), :remote => true %>
+        <%= link_to raw('<span class="glyphicon glyphicon-refresh"></span>'), vm_reboot_path(vm: vm.name), :remote => true, :confirm => "Are you sure you want to reboot VM '#{vm.name}?'" %>
 
         <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
 
         <ul class="dropdown-menu" role="menu">
-          <li><%= link_to 'Force off', vm_stop_path(vm: vm.name), :remote => true %></li>
-          <li><%= link_to 'Force reset', vm_reset_path(vm: vm.name), :remote => true %></li>
+          <li><%= link_to 'Force off', vm_stop_path(vm: vm.name), :remote => true, :confirm => "Are you sure you want to force VM '#{vm.name} off?'" %></li>
+          <li><%= link_to 'Force reset', vm_reset_path(vm: vm.name), :remote => true, :confirm => "Are you sure you want to force VM '#{vm.name} to reset?'" %></li>
 
           <li role="presentation" class="divider"></li>
 

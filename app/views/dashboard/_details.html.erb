@@ -1,11 +1,14 @@
 <h3>
   <%= vm.name %>
-  <% if vm.runtime.powerState == 'poweredOn' %>
+  <% if vm.power_state %>
     <span class="label label-success">Running</span>
+    <small>for <%= time_ago_in_words(vm.uptime) %>.</small>
   <% else %>
     <span class="label label-danger">Stopped</span>
   <% end %>
 </h3>
+
+<% if vm.tools_status %>
 
 <div class="panel panel-default">
   <div class="panel-heading">Network interfaces</div>
@@ -18,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <% vm.guest.net.each do | nic | %>
+      <% vm.nics.each do | nic | %>
         <tr>
           <% if nic.connected %>
             <td class="vm-state"><span class="label label-success">UP</span></td>
@@ -36,19 +39,22 @@
 <div class="panel panel-default">
   <div class="panel-heading">Hard drives</div>
   <div class="panel-body">
-    <% vm.guest.disk.each do | disk | %>
-      <%
-        used_space = disk.capacity - disk.freeSpace
-        percent = (used_space / disk.capacity.to_f * 100).to_i
-        capacity = (disk.capacity.to_f / 1024 / 1024 / 1024).round(2)
-        used_space = (used_space.to_f / 1024 / 1024 / 1024).round(2)
-      %>
-      <h5><%= disk.diskPath %> <small><%= used_space %> / <%= capacity %> GB</small></h5>
+    <% vm.disks.each do | disk | %>
+      <h5><%= disk.disk_path %> <small><%= disk.used_space(:gb) %> / <%= disk.capacity(:gb) %> GB</small></h5>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percent %>%;">
-          <%= percent %>%
+        <div class="progress-bar" role="progressbar" aria-valuenow="<%= disk.percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= disk.percent %>%;">
+          <%= disk.percent %>%
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<% else %>
+
+<div class="panel panel-danger">
+  <div class="panel-heading">Guest tools not installed</div>
+  <div class="panel-body">More information will be available when the Guest Tools agent is installed.</div>
+</div>
+
+<% end %>
